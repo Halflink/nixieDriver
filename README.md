@@ -23,17 +23,17 @@
 * use a normal raspberry pico
 * use three buttons to set the time (set / nexxt digit, up and down)
 
-### Hardware ###
-- [MCP213017](https://www.bitsandparts.nl/IC-MCP23017-I-O-Port-Expander-16-Bit-I2C-p113665) I/O expander I2C
-- [MPSA42](https://www.vanallesenmeer.nl/MPSA42-NPN-transistor-(high-voltage)) BJT high voltage transistor
-
-***
-
 ### Documentation
 - [Driver](https://github.com/mcauser/micropython-mcp23017) written by [Mike Causer](https://github.com/mcauser)
-- MCP213017 [datasheet](https://ww1.microchip.com/downloads/en/devicedoc/20001952c.pdf)
+- MCP23017 [datasheet](https://ww1.microchip.com/downloads/en/devicedoc/20001952c.pdf)
 - Raspberry PI [pinout](https://datasheets.raspberrypi.com/pico/Pico-R3-A4-Pinout.pdf)
 - [Tutorial](https://electronoobs.com/eng_arduino_tut131.php) about how to drive a nixie tube using BJT transistors
 
+*** 
 ## The project ##
+
+### Hardware ###
+- [MCP23017](https://www.bitsandparts.nl/IC-MCP23017-I-O-Port-Expander-16-Bit-I2C-p113665) I/O expander I2C
+- [MPSA42](https://www.vanallesenmeer.nl/MPSA42-NPN-transistor-(high-voltage)) BJT high voltage transistor
+
 
