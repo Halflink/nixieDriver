@@ -36,4 +36,6 @@
 - [MCP23017](https://www.bitsandparts.nl/IC-MCP23017-I-O-Port-Expander-16-Bit-I2C-p113665) I/O expander I2C
 - [MPSA42](https://www.vanallesenmeer.nl/MPSA42-NPN-transistor-(high-voltage)) BJT high voltage transistor
 
+### Testing ###
 
+[Testing the nixie tube](./doc/VID_20240526_181113.mp4)
