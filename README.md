@@ -5,7 +5,7 @@
 |---------------|----------------------|
 | Author:       | Jeroen van Zwam      |
 | Date:         | 2024-05-20           |
-| Last update:  | 2024-05-20           |
+| Last update:  | 2024-06-08           |
 | Project type: | Hardware             | 
 
 
@@ -21,7 +21,7 @@
 * Explanation of correct wiring
 * rtc module on a pico
 * use a normal raspberry pico
-* use three buttons to set the time (set / nexxt digit, up and down)
+* use three buttons to set the time (set / next digit, up and down)
 
 ### Documentation
 - [Driver](https://github.com/mcauser/micropython-mcp23017) written by [Mike Causer](https://github.com/mcauser)

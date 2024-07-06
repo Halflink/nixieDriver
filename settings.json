@@ -1,0 +1,19 @@
+{
+  "sdaPin": 16,
+  "sclPin": 17,
+  "onboardLedPin": 25,
+  "digits": [
+    {
+      "position": 0,
+      "address": "0x27",
+      "digitPins": [0,7,8,9,10,6,4,3,2,1],
+      "ncPin": 5
+    },
+    {
+      "position": 1,
+      "address": "0x26",
+      "digitPins": [0,7,8,9,10,6,4,3,2,1],
+      "ncPin": 5
+    }
+  ]
+}

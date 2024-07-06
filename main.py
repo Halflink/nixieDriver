@@ -1,76 +1,63 @@
-from machine import Pin, I2C
 import time
+import json
+from NixieDriver import NixieDriver
+from machine import Pin, I2C
 
-import mcp23017
+class Main:
 
-mcp23017
+    settings = None
+    onboardLed = None
+    nixie = []
+    i2c = None
 
-onboardLed = Pin(25, Pin.OUT)
+    def __init__(self):
+        f = open("settings.json")
+        self.settings = json.load(f)
+        self.onboardLed = Pin(self.settings['onboardLedPin'], Pin.OUT)
+        self.i2c = I2C(0,
+                       sda=self.settings['sdaPin'],
+                       scl=self.settings['sclPin'],
+                       freq=400000)
+        time.sleep(1)
+        if self.scan_i2c():
+            for digit in self.settings['digits']:
+                address = int(digit['address'], 16)
+                self.nixie.append(NixieDriver(i2c=self.i2c,
+                                              address=address,
+                                              digitPins=digit['digitPins'],
+                                              ncPin=digit['ncPin'],
+                                              position=digit['position']))
 
-def blinkOnboardLed(nr, sleepNr):
-    onboardLed.off()
-    for i in range(nr*2):
-        time.sleep(sleepNr)
-        onboardLed.toggle()
+    def blink_onboard_led(self, nrOfBlinks, sleepNr):
+        self.onboardLed.off()
+        for i in range(nrOfBlinks*2):
+            time.sleep(sleepNr)
+            self.onboardLed.toggle()
 
-def checkI2C():
-    print('Scan i2c bus...')
-    devices = i2c.scan()
+    def scan_i2c(self):
+        print('Scan i2c bus...')
+        devices = self.i2c.scan()
 
-    if len(devices) == 0:
-        print("No i2c device !")
-        blinkOnboardLed(5, 0.1)
-        return False
-    else:
-        print('i2c devices found:', len(devices))
-        blinkOnboardLed(3, 0.5)
+        if len(devices) == 0:
+            print("No i2c device !")
+            self.blink_onboard_led(10, 0.1)
+            return False
+        else:
+            print('i2c devices found:', len(devices))
+            self.blink_onboard_led(3, 0.5)
 
-    for device in devices:
-        print("Decimal address: ", device, " | Hexa address: ", hex(device))
+            for device in devices:
+                print("Decimal address: ", device, " | Hexa address: ", hex(device))
 
-    return True
+            return True
 
-def enableLed(pin):
-    mcp.pin(pin = pin, mode=0, value=1)
-
-def disableLed(pin):
-    mcp.pin(pin=pin, mode=0, value=0)
-
-def blinkLed(pin):
-    enableLed(pin)
-    time.sleep(0.5)
-    disableLed(pin)
-    time.sleep(0.5)
-
-
-onboardLed.off()
-
-sda=machine.Pin(16) #12 / 16
-scl=machine.Pin(17) #13 / 17
-i2c = I2C(0, sda=sda, scl=scl, freq=400000)
-time.sleep(1)
-
-if checkI2C():
-    mcp = mcp23017.MCP23017(i2c, 0x27)
 
 if __name__ == '__main__':
 
+    main = Main()
     while True:
-        if checkI2C():
-            blinkLed(0)
-            blinkLed(1)
-            blinkLed(2)
-            blinkLed(3)
-            blinkLed(4)
-            blinkLed(5)
-            blinkLed(6)
-            blinkLed(7)
-            blinkLed(8)
-            blinkLed(9)
-            blinkLed(10)
-            
-
-
-
-
+        for i in range(0, 9):
+            main.nixie[0].set_digit(i)
+            for j in range(0, 9):
+                main.nixie[1].set_digit(j)
 
