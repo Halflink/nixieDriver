@@ -17,7 +17,7 @@ class Main:
         self.i2c = I2C(0,
                        sda=self.settings['sdaPin'],
                        scl=self.settings['sclPin'],
-                       freq=400000)
+                       freq=40000)
         time.sleep(1)
         if self.scan_i2c():
             for digit in self.settings['digits']:
@@ -56,8 +56,10 @@ if __name__ == '__main__':
 
     main = Main()
     while True:
-        for i in range(0, 9):
-            main.nixie[0].set_digit(i)
-            for j in range(0, 9):
-                main.nixie[1].set_digit(j)
+        for i in range(0, 99):
+            num_str = f"{i:02d}"
+            digits = [int(d) for d in num_str]
+            print(digits)
+            main.nixie[1].set_digit(digits[1])
+            main.nixie[0].set_digit(digits[0])
 
