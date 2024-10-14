@@ -56,10 +56,14 @@ if __name__ == '__main__':
 
     main = Main()
     while True:
-        for i in range(0, 99):
-            num_str = f"{i:02d}"
+        for i in range(0, 99999):
+            num_str = f"{i:05d}"
             digits = [int(d) for d in num_str]
             print(digits)
-            main.nixie[1].set_digit(digits[1])
-            main.nixie[0].set_digit(digits[0])
+            main.nixie[0].set_digit(digits[4])
+            main.nixie[1].set_digit(digits[3])
+            main.nixie[2].set_digit(digits[2])
+            main.nixie[3].set_digit(digits[1])
+            main.nixie[4].set_digit(digits[0])
+            time.sleep(1)
 
