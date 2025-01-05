@@ -1,4 +1,4 @@
-from machine import Pin, I2C, RTC
+from machine import Pin, I2C
 from ds3231 import DS3231
 
 i2c = I2C(id=0, sda=Pin(20), scl=Pin(21), )

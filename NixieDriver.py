@@ -14,10 +14,11 @@ class NixieDriver:
         self.position = position
 
     def set_digit(self, nr):
-        if self.currentNumber >= 0:
-            self.mcp.pin(pin=self.digitPins[self.currentNumber], mode=0, value=0)
-        self.mcp.pin(pin=self.digitPins[nr], mode=0, value=1)
-        self.currentNumber = nr
+        if nr != self.currentNumber:
+            if self.currentNumber >= 0:
+                self.mcp.pin(pin=self.digitPins[self.currentNumber], mode=0, value=0)
+            self.mcp.pin(pin=self.digitPins[nr], mode=0, value=1)
+            self.currentNumber = nr
 
     def set_point_off(self):
         self.mcp.pin(pin=self.ncPin, mode=0, value=0)
