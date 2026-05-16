@@ -20,6 +20,12 @@ class NixieDriver:
             self.mcp.pin(pin=self.digitPins[nr], mode=0, value=1)
             self.currentNumber = nr
 
+    def set_dark(self):
+        """Turn off the current digit (blank the tube)."""
+        if self.currentNumber >= 0:
+            self.mcp.pin(pin=self.digitPins[self.currentNumber], mode=0, value=0)
+            self.currentNumber = -1
+
     def set_point_off(self):
         self.mcp.pin(pin=self.ncPin, mode=0, value=0)
 
@@ -39,6 +45,33 @@ class NixieDisplay:
                                                       digitPins=digit['digitPins'],
                                                       ncPin=digit['ncPin'],
                                                       position=digit['position']))
+
+    def show_digits(self, digits, visible_positions):
+        """Show specific digit values, blanking tubes not in visible_positions.
+        
+        digits: list of 6 ints (one per position 0-5)
+        visible_positions: set/list of position indices to show (others go dark)
+        """
+        for tube in self.nixie_display:
+            if tube.position in visible_positions:
+                tube.set_digit(digits[tube.position])
+            else:
+                tube.set_dark()
+
+    def all_dark(self):
+        """Turn off all tubes."""
+        for tube in self.nixie_display:
+            tube.set_dark()
+
+    def cathode_cycle(self, speed_ms):
+        """Cycle all digits 0-9 on all tubes to prevent cathode poisoning.
+        
+        speed_ms: time in milliseconds each digit is shown.
+        """
+        for digit in range(10):
+            for tube in self.nixie_display:
+                tube.set_digit(digit)
+            time.sleep_ms(speed_ms)
 
     def set_display(self, datetime_tuple):
         # datetime_tuple format is (year, month, day, weekday, hour, minutes, seconds, 0)

@@ -45,5 +45,23 @@
       "digitPins": [0,7,8,9,10,6,4,3,2,1],
       "ncPin": 5
     }
-  ]
+  ],
+  "basedate": {
+    "year": 2025, 
+        "month": 12,
+        "mday": 22,
+        "hour": 16,
+        "minute": 0,
+        "second": 0,
+        "weekday": 1
+  },
+  "rotary": {
+    "pin_a": 28,
+    "pin_b": 27,
+    "button_pin": 26
+  },
+  "cathodeCycling": {
+    "interval": 360,
+    "speed": 500
+  }
 }
